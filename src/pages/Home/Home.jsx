@@ -34,7 +34,7 @@ const Home = () => {
             Experience the timeless beauty of AI-generated art, reimagined in stunning black-and-white wallpapers that add elegance and sophistication to your screen.
           </motion.p>
           <motion.a
-            href="#explore"
+            href="/gallery"
             className={`explore-btn ${isDarkMode ? "bg-white text-black" : "bg-black text-white"}`}
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}

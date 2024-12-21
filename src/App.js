@@ -6,6 +6,9 @@ import Footer from "./components/Footer";
 import { ThemeProvider, useTheme } from "./context/ThemeContext";
 import Home from "./pages/Home/Home";
 import Profile from "./pages/Profile/Profile";
+import Gallery from "./pages/Gallery/Gallery";
+import Upload from "./pages/Upload/Upload";
+import Category from "./pages/Category/Category";
 
 function App() {
   const { isDarkMode } = useTheme();
@@ -22,6 +25,9 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/gallery" element={<Gallery />} />
+            <Route path="/categories" element={<Category />} />
+            <Route path="/upload" element={<Upload />} />
             {/* New route for AddNote */}
           </Routes>
         </main>

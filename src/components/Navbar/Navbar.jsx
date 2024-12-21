@@ -60,6 +60,12 @@ const Navbar = () => {
               Gallery
             </Link>
             <Link
+              to="/upload"
+              className={`transition duration-150 ${getLinkClass("/upload")}`}
+            >
+              Upload
+            </Link>
+            <Link
               to="/profile"
               className={`transition duration-150 ${getLinkClass("/profile")}`}
             >
@@ -138,7 +144,7 @@ const Navbar = () => {
           isOpen ? "translate-x-0 opacity-100" : "translate-x-full opacity-0"
         } fixed top-14 right-0 h-screen w-64 overflow-y-auto z-40`}
       >
-        {["/", "/categories", "/gallery", "/profile"].map((path) => (
+        {["/", "/categories", "/gallery","upload","/profile"].map((path) => (
           <Link
             key={path}
             to={path}
