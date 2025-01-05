@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const Upload = () => {
+const AddImageForm = () => {
   const [formData, setFormData] = useState({
     imageName: '',
     imageUrl: '',
@@ -111,4 +111,4 @@ const Upload = () => {
   );
 };
 
-export default Upload;
+export default AddImageForm;

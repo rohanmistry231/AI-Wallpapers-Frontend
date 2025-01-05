@@ -1,6 +1,6 @@
-// src/components/Footer.js
 import React from "react";
 import { useTheme } from "../context/ThemeContext"; // Adjust the path if necessary
+import { Link } from "react-router-dom"; // Using Link for routing consistency
 
 const Footer = () => {
   const { theme } = useTheme();
@@ -9,8 +9,8 @@ const Footer = () => {
   return (
     <footer
       className={`${
-        isDarkMode ? "bg-black text-white" : "bg-gray-100 text-black"
-      } py-8 shadow-md`}
+        isDarkMode ? "bg-black text-white" : "bg-gray-50 text-black"
+      } pb-8 shadow-md`}
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-8">
         {/* Top Section */}
@@ -18,18 +18,18 @@ const Footer = () => {
           {/* Brand Section */}
           <div className="text-center md:text-left">
             <h2
-              className={`text-xl font-bold ${
+              className={`text-2xl font-semibold mt-4 ${
                 isDarkMode ? "text-gray-300" : "text-gray-800"
               }`}
             >
-              Wallpaper Hub
+              Wallpapers<span className="text-blue-500">.AI</span>
             </h2>
             <p
               className={`mt-2 text-sm ${
                 isDarkMode ? "text-gray-400" : "text-gray-600"
               }`}
             >
-              Explore and download high-quality wallpapers for every screen. Curated collections for every taste.
+              Discover and download beautiful, high-quality wallpapers curated just for you.
             </p>
           </div>
 
@@ -42,38 +42,38 @@ const Footer = () => {
             >
               Quick Links
             </h3>
-            <a
-              href="/categories"
-              className={`hover:underline ${
+            <Link
+              to="/categories"
+              className={`hover:text-blue-500 transition duration-300 ${
                 isDarkMode ? "text-gray-400" : "text-gray-600"
               }`}
             >
               Categories
-            </a>
-            <a
-              href="/gallery"
-              className={`hover:underline ${
+            </Link>
+            <Link
+              to="/gallery"
+              className={`hover:text-blue-500 transition duration-300 ${
                 isDarkMode ? "text-gray-400" : "text-gray-600"
               }`}
             >
               Gallery
-            </a>
-            <a
-              href="/about"
-              className={`hover:underline ${
+            </Link>
+            <Link
+              to="/about"
+              className={`hover:text-blue-500 transition duration-300 ${
                 isDarkMode ? "text-gray-400" : "text-gray-600"
               }`}
             >
               About Us
-            </a>
-            <a
-              href="/contact"
-              className={`hover:underline ${
+            </Link>
+            <Link
+              to="/contact"
+              className={`hover:text-blue-500 transition duration-300 ${
                 isDarkMode ? "text-gray-400" : "text-gray-600"
               }`}
             >
               Contact
-            </a>
+            </Link>
           </div>
 
           {/* Social Media */}
@@ -90,7 +90,7 @@ const Footer = () => {
                 href="https://facebook.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`hover:text-gray-500 ${
+                className={`hover:text-blue-500 ${
                   isDarkMode ? "text-gray-300" : "text-gray-800"
                 }`}
               >
@@ -100,7 +100,7 @@ const Footer = () => {
                 href="https://twitter.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`hover:text-gray-500 ${
+                className={`hover:text-blue-500 ${
                   isDarkMode ? "text-gray-300" : "text-gray-800"
                 }`}
               >
@@ -110,7 +110,7 @@ const Footer = () => {
                 href="https://instagram.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`hover:text-gray-500 ${
+                className={`hover:text-blue-500 ${
                   isDarkMode ? "text-gray-300" : "text-gray-800"
                 }`}
               >
@@ -126,7 +126,7 @@ const Footer = () => {
             isDarkMode ? "border-gray-700 text-gray-500" : "border-gray-300 text-gray-500"
           }`}
         >
-          &copy; {new Date().getFullYear()} Wallpaper Hub. All rights reserved.
+          &copy; {new Date().getFullYear()} Wallpapers<span className="text-blue-500">.AI</span>. All rights reserved.
         </div>
       </div>
     </footer>

@@ -1,4 +1,3 @@
-// src/App.js
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
@@ -6,29 +5,38 @@ import Footer from "./components/Footer";
 import { ThemeProvider, useTheme } from "./context/ThemeContext";
 import Home from "./pages/Home/Home";
 import Profile from "./pages/Profile/Profile";
-import Gallery from "./pages/Gallery/Gallery";
+import CategoryImages from "./pages/Category/CategoryImages";
+import SignUp from "./components/SignUp";
+import SignIn from "./components/SignIn";
 import Upload from "./pages/Upload/Upload";
-import Category from "./pages/Category/Category";
+import Wallpapers from "./pages/Wallpapers/Wallpapers";
+import CategoriesList from "./pages/Category/CategoryList";
 
 function App() {
   const { isDarkMode } = useTheme();
 
   return (
-    <Router>
+    <Router
+      future={{
+        v7_relativeSplatPath: true, // Opt into the new v7 relative splat path behavior
+        v7_startTransition: true,  // Opt into state transition handling
+      }}
+    >
       <div
-        className={`flex flex-col min-h-screen ${
-          isDarkMode ? "dark" : "light"
-        }`}
+        className={`flex flex-col min-h-screen ${isDarkMode ? "dark" : "light"}`}
       >
         <Navbar />
         <main className="flex-grow">
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/signin" element={<SignIn />} />
+            <Route path="/signup" element={<SignUp />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/gallery" element={<Gallery />} />
-            <Route path="/categories" element={<Category />} />
+            <Route path="/categories" element={<CategoriesList />} />
+            <Route path="/category/:categoryName" element={<CategoryImages />} />
             <Route path="/upload" element={<Upload />} />
-            {/* New route for AddNote */}
+            <Route path="/wallpapers" element={<Wallpapers />} />
+            <Route path="/category/:category" element={<CategoryImages />} />
           </Routes>
         </main>
         <Footer />
@@ -39,7 +47,9 @@ function App() {
 
 const MainApp = () => (
   <ThemeProvider>
-    <App />
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
   </ThemeProvider>
 );
 
