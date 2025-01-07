@@ -22,7 +22,7 @@ const Footer = () => {
                 isDarkMode ? "text-gray-300" : "text-gray-800"
               }`}
             >
-              Wallpapers<span className="text-blue-500">.AI</span>
+              Walls<span className="text-blue-500">.Ai</span>
             </h2>
             <p
               className={`mt-2 text-sm ${
@@ -43,6 +43,14 @@ const Footer = () => {
               Quick Links
             </h3>
             <Link
+              to="/wallpapers"
+              className={`hover:text-blue-500 transition duration-300 ${
+                isDarkMode ? "text-gray-400" : "text-gray-600"
+              }`}
+            >
+              Wallpapers
+            </Link>
+            <Link
               to="/categories"
               className={`hover:text-blue-500 transition duration-300 ${
                 isDarkMode ? "text-gray-400" : "text-gray-600"
@@ -51,28 +59,28 @@ const Footer = () => {
               Categories
             </Link>
             <Link
-              to="/gallery"
+              to="/personalization"
               className={`hover:text-blue-500 transition duration-300 ${
                 isDarkMode ? "text-gray-400" : "text-gray-600"
               }`}
             >
-              Gallery
+              Personalized
             </Link>
             <Link
-              to="/about"
+              to="/contribution"
               className={`hover:text-blue-500 transition duration-300 ${
                 isDarkMode ? "text-gray-400" : "text-gray-600"
               }`}
             >
-              About Us
+              Contribution
             </Link>
             <Link
-              to="/contact"
+              to="/profile"
               className={`hover:text-blue-500 transition duration-300 ${
                 isDarkMode ? "text-gray-400" : "text-gray-600"
               }`}
             >
-              Contact
+              Developer's Profile
             </Link>
           </div>
 
@@ -87,34 +95,44 @@ const Footer = () => {
             </h3>
             <div className="flex justify-center md:justify-end space-x-4 mt-2">
               <a
-                href="https://facebook.com"
+                href="https://github.com/rohanmistry231"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`hover:text-blue-500 ${
                   isDarkMode ? "text-gray-300" : "text-gray-800"
                 }`}
               >
-                Facebook
+                Github
               </a>
               <a
-                href="https://twitter.com"
+                href="https://www.linkedin.com/in/rohan-mistry-493987202/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`hover:text-blue-500 ${
                   isDarkMode ? "text-gray-300" : "text-gray-800"
                 }`}
               >
-                Twitter
+                LinkedIn
               </a>
               <a
-                href="https://instagram.com"
+                href="https://medium.com/@rohanmistry231"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`hover:text-blue-500 ${
                   isDarkMode ? "text-gray-300" : "text-gray-800"
                 }`}
               >
-                Instagram
+                Medium
+              </a>
+              <a
+                href="https://irohanportfolio.netlify.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`hover:text-blue-500 ${
+                  isDarkMode ? "text-gray-300" : "text-gray-800"
+                }`}
+              >
+                Portfolio
               </a>
             </div>
           </div>
@@ -126,7 +144,7 @@ const Footer = () => {
             isDarkMode ? "border-gray-700 text-gray-500" : "border-gray-300 text-gray-500"
           }`}
         >
-          &copy; {new Date().getFullYear()} Wallpapers<span className="text-blue-500">.AI</span>. All rights reserved.
+          &copy; {new Date().getFullYear()} Walls<span className="text-blue-500">.Ai</span>. All rights reserved.
         </div>
       </div>
     </footer>

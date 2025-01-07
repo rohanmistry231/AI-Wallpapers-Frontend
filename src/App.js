@@ -11,6 +11,9 @@ import SignIn from "./components/SignIn";
 import Upload from "./pages/Upload/Upload";
 import Wallpapers from "./pages/Wallpapers/Wallpapers";
 import CategoriesList from "./pages/Category/CategoryList";
+import Personalization from "./pages/Personalization/Personalization";
+import Contribution from "./components/SignIn";
+import Contributor from "./pages/Contribution/Contributor";
 
 function App() {
   const { isDarkMode } = useTheme();
@@ -35,6 +38,9 @@ function App() {
             <Route path="/categories" element={<CategoriesList />} />
             <Route path="/category/:categoryName" element={<CategoryImages />} />
             <Route path="/upload" element={<Upload />} />
+            <Route path="/contri" element={<Contribution />} />
+            <Route path="/contribution" element={<Contributor />} />
+            <Route path="/personalization" element={<Personalization />} />
             <Route path="/wallpapers" element={<Wallpapers />} />
             <Route path="/category/:category" element={<CategoryImages />} />
           </Routes>

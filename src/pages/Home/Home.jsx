@@ -4,6 +4,7 @@ import { useTheme } from "../../context/ThemeContext";
 import { motion } from "framer-motion";
 import Slider from "react-slick";
 import "./Home.css";
+import emailjs from "emailjs-com";
 
 const Home = () => {
   const { theme } = useTheme();
@@ -20,7 +21,7 @@ const Home = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 3000,
+    autoplaySpeed: 2000,
     pauseOnHover: true,
     arrows: false,
   };
@@ -52,6 +53,28 @@ const Home = () => {
       animateCounters();
     }
   }, [inView]);
+
+  const sendFeedback = (e) => {
+    e.preventDefault();
+
+    emailjs
+      .sendForm(
+        "service_a67x7y8", // Replace with your EmailJS service ID
+        "template_gt1chg4", // Replace with your EmailJS template ID
+        e.target,
+        "rHzYtPzuq3jMFUP4W" // Replace with your EmailJS user ID
+      )
+      .then(
+        (result) => {
+          alert("Feedback sent successfully!");
+        },
+        (error) => {
+          console.error("Error sending feedback:", error);
+          alert("Failed to send feedback. Please try again later.");
+        }
+      );
+    e.target.reset();
+  };
 
   return (
     <div
@@ -118,7 +141,7 @@ const Home = () => {
 
             {/* Get Personalized Wallpapers Button */}
             <motion.a
-              href="/personalized"
+              href="/personalization"
               className={`explore-btn inline-block py-3 px-8 bg-black text-white rounded-full shadow-md hover:bg-gray-800 transition-all duration-300 ${
                 isDarkMode ? "hover:text-white" : "hover:text-black"
               }`}
@@ -127,6 +150,19 @@ const Home = () => {
               transition={{ duration: 1, delay: 1.1 }}
             >
               Get Personalized Wallpaper
+            </motion.a>
+
+            {/* Be The Contributor */}
+            <motion.a
+              href="/contribution"
+              className={`explore-btn inline-block py-3 px-8 bg-black text-white rounded-full shadow-md hover:bg-gray-800 transition-all duration-300 ${
+                isDarkMode ? "hover:text-white" : "hover:text-black"
+              }`}
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 1.1 }}
+            >
+              Be The Contributor
             </motion.a>
           </div>
         </div>
@@ -279,188 +315,6 @@ const Home = () => {
           </div>
         </div>
       </motion.section>
-    
-      {/* Personalized Wallpapers Section */}
-      <motion.section
-        className={`personalized-wallpapers-section ${
-          isDarkMode ? "bg-gray-800 text-white" : "bg-gray-100 text-black"
-        } py-20 px-6 sm:px-12`}
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-        viewport={{ once: true, amount: 0.8 }}
-      >
-        <div className="max-w-7xl mx-auto text-center">
-          <motion.h2
-            className={`text-4xl font-semibold mb-4 ${
-              isDarkMode ? "text-white" : "text-black"
-            }`}
-            initial={{ opacity: 0, y: -50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.2 }}
-          >
-            Get Your Personalized Wallpaper
-          </motion.h2>
-
-          <motion.p
-            className={`text-lg mb-8 ${
-              isDarkMode ? "text-gray-300" : "text-gray-700"
-            }`}
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.4 }}
-          >
-            Enter your name, email, and describe the wallpaper you want, and
-            we’ll generate a unique, AI-designed wallpaper just for you.
-          </motion.p>
-
-          <div className="form-container grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Left Side: Name and Email */}
-            <div className="input-section space-y-6">
-              <motion.div
-                initial={{ opacity: 0, y: -50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1, delay: 0.6 }}
-              >
-                <label
-                  htmlFor="name"
-                  className="block text-lg font-semibold mb-2"
-                >
-                  Your Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  className={`w-full py-3 px-6 border-2 rounded-lg ${
-                    isDarkMode
-                      ? "bg-gray-900 text-white border-gray-600"
-                      : "bg-white text-black border-gray-400"
-                  }`}
-                  placeholder="Enter your name"
-                />
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: -50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1, delay: 0.8 }}
-              >
-                <label
-                  htmlFor="email"
-                  className="block text-lg font-semibold mb-2"
-                >
-                  Your Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  className={`w-full py-3 px-6 border-2 rounded-lg ${
-                    isDarkMode
-                      ? "bg-gray-900 text-white border-gray-600"
-                      : "bg-white text-black border-gray-400"
-                  }`}
-                  placeholder="Enter your email"
-                />
-              </motion.div>
-            </div>
-
-            {/* Right Side: Wallpaper Details */}
-            <div className="input-section space-y-6">
-              <motion.div
-                initial={{ opacity: 0, y: -50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1, delay: 1 }}
-              >
-                <label
-                  htmlFor="wallpaper-details"
-                  className="block text-lg font-semibold mb-2"
-                >
-                  Wallpaper Details
-                </label>
-                <textarea
-                  id="wallpaper-details"
-                  rows="4"
-                  className={`w-full py-7 px-6 border-2 rounded-lg ${
-                    isDarkMode
-                      ? "bg-gray-900 text-white border-gray-600"
-                      : "bg-white text-black border-gray-400"
-                  }`}
-                  placeholder="Describe your ideal wallpaper"
-                ></textarea>
-              </motion.div>
-            </div>
-          </div>
-
-          {/* Submit Button */}
-          <motion.a
-            href="/personalized"
-            className={`explore-btn inline-block py-3 px-8 bg-black text-white rounded-full shadow-md hover:bg-gray-800 transition-all duration-300 mt-8 ${
-              isDarkMode ? "hover:text-white" : "hover:text-black"
-            }`}
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 1.1 }}
-          >
-            Get Personalized Wallpaper
-          </motion.a>
-        </div>
-      </motion.section>
-
-      {/* Gallery Section with Slider */}
-      <motion.section
-        className={`gallery-section ${
-          isDarkMode ? "bg-black text-white" : "bg-white text-black"
-        } py-20 px-6 sm:px-12`}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 2.4 }}
-      >
-        <div className="max-w-7xl mx-auto text-center">
-          <motion.h2
-            className={`text-4xl font-semibold ${
-              isDarkMode ? "text-white" : "text-black"
-            }`}
-            initial={{ opacity: 0, y: -50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 2.6 }}
-          >
-            Featured Wallpapers
-          </motion.h2>
-
-          {/* Slider Component */}
-          <Slider {...sliderSettings} className="mt-8">
-            {/* Replace with your dynamic wallpaper images */}
-            <div className="slider-item">
-              <img
-                src="path_to_image1.jpg"
-                alt="Wallpaper 1"
-                className="w-full h-64 object-cover rounded-lg shadow-md"
-              />
-            </div>
-            <div className="slider-item">
-              <img
-                src="path_to_image2.jpg"
-                alt="Wallpaper 2"
-                className="w-full h-64 object-cover rounded-lg shadow-md"
-              />
-            </div>
-            <div className="slider-item">
-              <img
-                src="path_to_image3.jpg"
-                alt="Wallpaper 3"
-                className="w-full h-64 object-cover rounded-lg shadow-md"
-              />
-            </div>
-            <div className="slider-item">
-              <img
-                src="path_to_image4.jpg"
-                alt="Wallpaper 4"
-                className="w-full h-64 object-cover rounded-lg shadow-md"
-              />
-            </div>
-          </Slider>
-        </div>
-      </motion.section>
 
       {/* Free for Everyone Section */}
       <motion.section
@@ -508,10 +362,66 @@ const Home = () => {
         </div>
       </motion.section>
 
+      {/* Gallery Section with Slider */}
+      <motion.section
+        className={`gallery-section ${
+          isDarkMode ? "bg-black text-white" : "bg-white text-black"
+        } py-20 px-6 sm:px-12`}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, delay: 2.4 }}
+      >
+        <div className="max-w-7xl mx-auto text-center">
+          <motion.h2
+            className={`text-4xl font-semibold ${
+              isDarkMode ? "text-white" : "text-black"
+            }`}
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 2.6 }}
+          >
+            Featured Wallpapers
+          </motion.h2>
+
+          {/* Slider Component */}
+          <Slider {...sliderSettings} className="mt-8">
+            {/* Replace with your dynamic wallpaper images */}
+            <div className="slider-item">
+              <img
+                src="https://i.postimg.cc/266bvnDJ/60.jpg"
+                alt="Wallpaper 1"
+                className="w-full h-64 object-cover rounded-lg shadow-md"
+              />
+            </div>
+            <div className="slider-item">
+              <img
+                src="https://i.postimg.cc/vmbRBzsr/03.jpg"
+                alt="Wallpaper 2"
+                className="w-full h-64 object-cover rounded-lg shadow-md"
+              />
+            </div>
+            <div className="slider-item">
+              <img
+                src="https://i.postimg.cc/631bpSLQ/2477.jpg"
+                alt="Wallpaper 3"
+                className="w-full h-64 object-cover rounded-lg shadow-md"
+              />
+            </div>
+            <div className="slider-item">
+              <img
+                src="https://i.postimg.cc/RFBT0dKt/1727.jpg"
+                alt="Wallpaper 4"
+                className="w-full h-64 object-cover rounded-lg shadow-md"
+              />
+            </div>
+          </Slider>
+        </div>
+      </motion.section>
+
       {/* Join the Community Section */}
       <motion.section
         className={`join-section ${
-          isDarkMode ? "bg-black text-white" : "bg-white text-black"
+          isDarkMode ? "bg-gray-800 text-white" : "bg-gray-100 text-black"
         } py-20 px-6 sm:px-12`}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -553,6 +463,88 @@ const Home = () => {
           </motion.a>
         </div>
       </motion.section>
+
+       {/* Feedback Section */}
+       <motion.section
+        className={`feedback-section ${
+          isDarkMode ? "bg-black text-white" : "bg-white text-black"
+        } py-20 px-6 sm:px-12`}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, delay: 3 }}
+      >
+        <div className="max-w-5xl mx-auto text-center">
+          <motion.h2
+            className={`text-4xl font-semibold ${
+              isDarkMode ? "text-white" : "text-black"
+            }`}
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 3.2 }}
+          >
+            We Value Your Feedback
+          </motion.h2>
+          <motion.p
+            className={`text-xl mb-8 ${
+              isDarkMode ? "text-gray-300" : "text-gray-800"
+            }`}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 3.4 }}
+          >
+            Help us improve by sharing your thoughts and suggestions.
+          </motion.p>
+          <form onSubmit={sendFeedback} className="feedback-form">
+            <div className="mb-6">
+              <input
+                type="text"
+                name="name"
+                placeholder="Your Name"
+                required
+                className={`form-input w-full p-3 rounded-md shadow-md ${
+                  isDarkMode
+                    ? "bg-gray-800 text-white border-gray-600 focus:ring-blue-500"
+                    : "bg-white text-black border-gray-300 focus:ring-blue-500"
+                }`}
+              />
+            </div>
+            <div className="mb-6">
+              <input
+                type="email"
+                name="email"
+                placeholder="Your Email"
+                required
+                className={`form-input w-full p-3 rounded-md shadow-md ${
+                  isDarkMode
+                    ? "bg-gray-800 text-white border-gray-600 focus:ring-blue-500"
+                    : "bg-white text-black border-gray-300 focus:ring-blue-500"
+                }`}
+              />
+            </div>
+            <div className="mb-6">
+              <textarea
+                name="message"
+                placeholder="Your Feedback"
+                required
+                className={`form-textarea w-full p-3 rounded-md shadow-md ${
+                  isDarkMode
+                    ? "bg-gray-800 text-white border-gray-600 focus:ring-blue-500"
+                    : "bg-white text-black border-gray-300 focus:ring-blue-500"
+                }`}
+              />
+            </div>
+            <button
+              type="submit"
+              className={`explore-btn inline-block py-3 px-8 bg-black text-white rounded-full shadow-md hover:bg-gray-800 transition-all duration-300 ${
+              isDarkMode ? "hover:text-white" : "hover:text-black"
+            }`}
+            >
+              Submit Feedback
+            </button>
+          </form>
+        </div>
+      </motion.section>
+
     </div>
   );
 };

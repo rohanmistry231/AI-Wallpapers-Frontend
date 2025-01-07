@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useTheme } from "../../context/ThemeContext";
 import "./Navbar.css";
 
@@ -7,6 +7,7 @@ const Navbar = () => {
   const { theme, toggleTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   const isDarkMode = theme === "dark";
 
@@ -25,12 +26,21 @@ const Navbar = () => {
     { name: "Home", path: "/" },
     { name: "Wallpapers", path: "/wallpapers" },
     { name: "Categories", path: "/categories" },
+    { name: "Personalized ", path: "/personalization" },
     { name: "Upload", path: "/upload" },
-    { name: "Profile", path: "/profile" },
+    { name: "Contribution", path: "/contribution" },
+    { name: "Developer's Profile", path: "/profile" },
   ];
 
   // Check if the user is logged in based on the token in localStorage
   const isLoggedIn = localStorage.getItem("token");
+
+  const handleSignOut = () => {
+    // Remove the token from localStorage
+    localStorage.removeItem("token");
+    // Optionally, navigate the user to a different page (e.g., Home or Login)
+    navigate("/signin");
+  };
 
   return (
     <nav
@@ -41,6 +51,11 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
         {/* Logo and Title */}
         <Link to="/" className="flex items-center space-x-2 text-2xl font-bold tracking-wide">
+          <img
+            src={isDarkMode ? "white logo.png" : "black logo.png"}
+            alt="Walls.Ai Logo"
+            className="h-8 w-8" // Adjust height and width as needed
+          />
           <span>
             Walls<span className="text-blue-500">.Ai</span>
           </span>
@@ -61,20 +76,41 @@ const Navbar = () => {
           ))}
 
           {!isLoggedIn && (
-            <>
+            <div className="flex space-x-4">
               <Link
                 to="/signup"
-                className={`px-4 py-2 rounded-md bg-blue-500 text-white hover:bg-blue-600 transition duration-300 transform motion-safe:hover:scale-105`}
+                className={`px-4 py-2 rounded-md border transition duration-300 ${
+                  isDarkMode
+                    ? "bg-black text-white border-white hover:bg-gray-800"
+                    : "bg-white text-black border-black hover:bg-gray-100"
+                }`}
               >
                 Sign Up
               </Link>
               <Link
                 to="/signin"
-                className={`ml-4 px-4 py-2 rounded-md bg-blue-500 text-white hover:bg-blue-600 transition duration-300 transform motion-safe:hover:scale-105`}
+                className={`px-4 py-2 rounded-md border transition duration-300 ${
+                  isDarkMode
+                    ? "bg-black text-white border-white hover:bg-gray-800"
+                    : "bg-white text-black border-black hover:bg-gray-100"
+                }`}
               >
                 Login
               </Link>
-            </>
+            </div>
+          )}
+
+          {isLoggedIn && (
+            <button
+              onClick={handleSignOut}
+              className={`px-4 py-2 rounded-md border transition duration-300 ${
+                isDarkMode
+                  ? "bg-black text-white border-white hover:bg-gray-800"
+                  : "bg-white text-black border-black hover:bg-gray-100"
+              }`}
+            >
+              Sign Out
+            </button>
           )}
 
           <button
@@ -162,22 +198,45 @@ const Navbar = () => {
         ))}
 
         {!isLoggedIn && (
-          <>
+          <div className="space-y-4">
             <Link
               to="/signup"
               onClick={toggleMenu}
-              className="block text-lg capitalize px-4 py-2 rounded-md bg-blue-500 text-white hover:bg-blue-600 transition duration-300 transform motion-safe:hover:scale-105"
+              className={`block w-full text-center text-lg capitalize px-4 py-2 rounded-md border transition duration-300 ${
+                isDarkMode
+                  ? "bg-black text-white border-white hover:bg-gray-800"
+                  : "bg-white text-black border-black hover:bg-gray-100"
+              }`}
             >
               Sign Up
             </Link>
             <Link
               to="/signin"
               onClick={toggleMenu}
-              className="block text-lg capitalize px-4 py-2 rounded-md bg-blue-500 text-white hover:bg-blue-600 transition duration-300 transform motion-safe:hover:scale-105"
+              className={`block w-full text-center text-lg capitalize px-4 py-2 rounded-md border transition duration-300 ${
+                isDarkMode
+                  ? "bg-black text-white border-white hover:bg-gray-800"
+                  : "bg-white text-black border-black hover:bg-gray-100"
+              }`}
             >
               Login
             </Link>
-          </>
+          </div>
+        )}
+
+        {isLoggedIn && (
+          <div className="space-y-4">
+            <button
+              onClick={handleSignOut}
+              className={`block w-full text-center text-lg capitalize px-4 py-2 rounded-md border transition duration-300 ${
+                isDarkMode
+                  ? "bg-black text-white border-white hover:bg-gray-800"
+                  : "bg-white text-black border-black hover:bg-gray-100"
+              }`}
+            >
+              Sign Out
+            </button>
+          </div>
         )}
       </div>
     </nav>

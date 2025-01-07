@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useTheme } from "../context/ThemeContext";
+import { useTheme } from "../../context/ThemeContext";
 import { motion } from "framer-motion";
+import emailjs from "emailjs-com"; // Import EmailJS
 
-const SignIn = () => {
+const Contributor = () => {
   const { theme } = useTheme();
   const isDarkMode = theme === "dark";
   const [formData, setFormData] = useState({
+    contributorName: "",
     email: "",
-    password: "",
+    driveLink: "",
+    category: "",
   });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -23,26 +26,24 @@ const SignIn = () => {
     setLoading(true);
 
     try {
-      const response = await fetch("https://ai-wallpapers-backend.vercel.app/users/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      // Using EmailJS to send the form data
+      const response = await emailjs.send(
+        "service_q7yp1ne", // Replace with your EmailJS service ID
+        "template_00wjjev", // Replace with your EmailJS template ID
+        formData,
+        "YPYGQJanJ9f_o4YcE" // Replace with your EmailJS user ID
+      );
 
-      const data = await response.json();
-
-      if (response.ok) {
-        // On success, store token and redirect to dashboard
-        localStorage.setItem("token", data.token); // Store token in localStorage
-        navigate("/"); // Redirect to the dashboard (or the page you want)
+      if (response.status === 200) {
+        // On success, show a success message or redirect
+        alert("Thank you for your contribution!");
+        navigate("/"); // Redirect after successful submission
       } else {
-        setError(data.error || "Invalid credentials.");
+        setError("Error sending contribution. Please try again.");
       }
     } catch (error) {
-      console.error("Error during sign in:", error);
-      setError("Error signing in. Please try again.");
+      console.error("Error during contribution submission:", error);
+      setError("Error sending contribution. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -60,11 +61,31 @@ const SignIn = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
       >
-        <h2 className="text-2xl font-semibold text-center mb-6">Sign In</h2>
+        <h2 className="text-2xl font-semibold text-center mb-6">Be The Contributor</h2>
 
         {error && <p className="text-red-500 text-center mb-4">{error}</p>}
 
         <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="relative">
+            <label htmlFor="contributorName" className="block text-sm font-medium">
+              Contributor Name
+            </label>
+            <input
+              type="text"
+              name="contributorName"
+              id="contributorName"
+              value={formData.contributorName}
+              onChange={handleChange}
+              className={`w-full p-3 mt-2 rounded-lg border-2 focus:ring-2 focus:outline-none ${
+                isDarkMode
+                  ? "bg-gray-800 text-white border-gray-600 focus:ring-blue-500"
+                  : "bg-white text-black border-gray-300 focus:ring-blue-500"
+              }`}
+              placeholder="Enter your name"
+              required
+            />
+          </div>
+
           <div className="relative">
             <label htmlFor="email" className="block text-sm font-medium">
               Email
@@ -86,21 +107,41 @@ const SignIn = () => {
           </div>
 
           <div className="relative">
-            <label htmlFor="password" className="block text-sm font-medium">
-              Password
+            <label htmlFor="driveLink" className="block text-sm font-medium">
+              Drive Link of Wallpapers
             </label>
             <input
-              type="password"
-              name="password"
-              id="password"
-              value={formData.password}
+              type="url"
+              name="driveLink"
+              id="driveLink"
+              value={formData.driveLink}
               onChange={handleChange}
               className={`w-full p-3 mt-2 rounded-lg border-2 focus:ring-2 focus:outline-none ${
                 isDarkMode
                   ? "bg-gray-800 text-white border-gray-600 focus:ring-blue-500"
                   : "bg-white text-black border-gray-300 focus:ring-blue-500"
               }`}
-              placeholder="Enter your password"
+              placeholder="Enter Google Drive link"
+              required
+            />
+          </div>
+
+          <div className="relative">
+            <label htmlFor="category" className="block text-sm font-medium">
+              Category of Wallpapers
+            </label>
+            <input
+              type="text"
+              name="category"
+              id="category"
+              value={formData.category}
+              onChange={handleChange}
+              className={`w-full p-3 mt-2 rounded-lg border-2 focus:ring-2 focus:outline-none ${
+                isDarkMode
+                  ? "bg-gray-800 text-white border-gray-600 focus:ring-blue-500"
+                  : "bg-white text-black border-gray-300 focus:ring-blue-500"
+              }`}
+              placeholder="Enter category (e.g., Nature, Tech)"
               required
             />
           </div>
@@ -115,21 +156,12 @@ const SignIn = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
           >
-            {loading ? "Signing in..." : "Sign In"}
+            {loading ? "Submitting..." : "Submit Contribution"}
           </motion.button>
         </form>
-
-        <div className="mt-4 text-center">
-          <p className="text-md">
-            Don't have an account?{" "}
-            <a href="/signup" className="text-blue-600 hover:underline">
-              Sign Up
-            </a>
-          </p>
-        </div>
       </motion.div>
     </div>
   );
 };
 
-export default SignIn;
+export default Contributor;
