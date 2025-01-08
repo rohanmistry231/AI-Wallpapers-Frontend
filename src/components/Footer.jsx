@@ -29,7 +29,8 @@ const Footer = () => {
                 isDarkMode ? "text-gray-400" : "text-gray-600"
               }`}
             >
-              Discover and download beautiful, high-quality wallpapers curated just for you.
+              Discover and download beautiful, high-quality wallpapers curated
+              just for you.
             </p>
           </div>
 
@@ -141,10 +142,13 @@ const Footer = () => {
         {/* Bottom Section */}
         <div
           className={`border-t mt-6 pt-4 text-center text-xs ${
-            isDarkMode ? "border-gray-700 text-gray-500" : "border-gray-300 text-gray-500"
+            isDarkMode
+              ? "border-gray-700 text-gray-500"
+              : "border-gray-300 text-gray-500"
           }`}
         >
-          &copy; {new Date().getFullYear()} Walls<span className="text-blue-500">.Ai</span>. All rights reserved.
+          &copy; {new Date().getFullYear()} Walls
+          <span className="text-blue-500">.Ai</span>. All rights reserved.
         </div>
       </div>
     </footer>

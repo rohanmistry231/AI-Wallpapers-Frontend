@@ -37,12 +37,12 @@ const CategoryImages = () => {
     };
 
     fetchImages();
-  }, [categoryName]);
+  }, [categoryName, theme]);
 
   const openPreviewModal = (imageUrl) => {
     if (isAuthenticated()) {
-    setModalImage(imageUrl);
-    }else{
+      setModalImage(imageUrl);
+    } else {
       setShowSignUpModal(true);
     }
   };
@@ -68,38 +68,39 @@ const CategoryImages = () => {
 
   const handleDownloadClick = (url, event) => {
     if (isAuthenticated()) {
-    event.stopPropagation(); // Prevent modal opening when clicking on the download icon
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = url.split("/").pop();
-    link.click();
-    }else{
+      event.stopPropagation(); // Prevent modal opening when clicking on the download icon
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = url.split("/").pop();
+      link.click();
+    } else {
       setShowSignUpModal(true);
     }
   };
 
   const handleDownloadAll = async () => {
     if (isAuthenticated()) {
-    setDownloadingAll(true);
-    const zip = new JSZip();
-    const folder = zip.folder(`${categoryName}-wallpapers`);
+      setDownloadingAll(true);
+      const zip = new JSZip();
+      const folder = zip.folder(`${categoryName}-wallpapers`);
 
-    try {
-      const downloadPromises = images.map(async (image, index) => {
-        const response = await axios.get(image.downloadUrl, {
-          responseType: "blob",
+      try {
+        const downloadPromises = images.map(async (image, index) => {
+          const response = await axios.get(image.downloadUrl, {
+            responseType: "blob",
+          });
+          folder.file(`wallpaper-${index + 1}.jpg`, response.data);
         });
-        folder.file(`wallpaper-${index + 1}.jpg`, response.data);
-      });
 
-      await Promise.all(downloadPromises);
-      const zipBlob = await zip.generateAsync({ type: "blob" });
-      saveAs(zipBlob, `${categoryName}-wallpapers.zip`);
-    } catch (error) {
-      console.error("Error downloading images:", error);
-    } finally {
-      setDownloadingAll(false);
-    }}else{
+        await Promise.all(downloadPromises);
+        const zipBlob = await zip.generateAsync({ type: "blob" });
+        saveAs(zipBlob, `${categoryName}-wallpapers.zip`);
+      } catch (error) {
+        console.error("Error downloading images:", error);
+      } finally {
+        setDownloadingAll(false);
+      }
+    } else {
       setShowSignUpModal(true);
     }
   };
@@ -127,12 +128,12 @@ const CategoryImages = () => {
             <div className="flex justify-center mt-4 space-x-6">
               <button
                 onClick={handleShareClick}
-                className="bg-transparent text-white p-3 rounded-full flex items-center justify-center"
+                className="bg-transparent text-white p-3 rounded-full flex items-center justify-center transition duration-300 shadow-md"
                 title="Share"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-8 w-8"
+                  className="h-6 w-6"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -141,11 +142,13 @@ const CategoryImages = () => {
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    d="M15 12h3l-4 4m0 0l4-4-4-4m4 4H9"
+                    d="M17 9l4-4m0 0l-4-4m4 4H3M7 12l-4 4m0 0l4 4m-4-4h14"
                   />
                 </svg>
                 {shareStatus && (
-                  <span className="ml-2 text-sm">Link copied!</span>
+                  <span className="ml-2 text-sm text-gray-300 animate-pulse">
+                    Link copied!
+                  </span>
                 )}
               </button>
               <button
@@ -194,50 +197,46 @@ const CategoryImages = () => {
       )}
 
       <div className="flex justify-between items-center mb-6">
-      {/* Back to Categories Button with SVG Logo */}
-<div
-  className={`flex items-center py-2 px-2 border rounded-md shadow-md transition-all duration-300 space-x-2 cursor-pointer ${
-    isDarkMode
-      ? "bg-black text-black"
-      : "bg-black text-white"
-  }`}
-  initial={{ opacity: 0, y: 50 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 1, delay: 0.3 }}
-  onClick={() => navigate("/categories")}
->
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    className="h-6 w-6"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke={isDarkMode ? "white" : "white"}
-    strokeWidth={2}
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M15 19l-7-7 7-7"
-    />
-  </svg>
-</div>
+        {/* Back to Categories Button with SVG Logo */}
+        <div
+          className={`flex items-center py-2 px-2 border rounded-md shadow-md transition-all duration-300 space-x-2 cursor-pointer ${
+            isDarkMode ? "bg-black text-black" : "bg-black text-white"
+          }`}
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.3 }}
+          onClick={() => navigate("/categories")}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke={isDarkMode ? "white" : "white"}
+            strokeWidth={2}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M15 19l-7-7 7-7"
+            />
+          </svg>
+        </div>
 
-
-      {/* Download All Button */}
-      <div
-        className={`py-2 px-4 border bg-black text-white rounded-md shadow-md hover:bg-gray-400 transition-all duration-300 cursor-pointer ${
-          downloadingAll
-            ? "hover:text-white" : "hover:text-black"
-        }`}
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, delay: 0.5 }}
-        onClick={handleDownloadAll}
-        disabled={downloadingAll}
-      >
-        {downloadingAll ? "Downloading..." : "Download All"}
+        {/* Download All Button */}
+        <div
+          className={`py-2 px-4 border bg-black text-white rounded-md shadow-md hover:bg-gray-400 transition-all duration-300 cursor-pointer ${
+            downloadingAll ? "hover:text-white" : "hover:text-black"
+          }`}
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.5 }}
+          onClick={handleDownloadAll}
+          disabled={downloadingAll}
+        >
+          {downloadingAll ? "Downloading..." : "Download All"}
+        </div>
       </div>
-    </div>
 
       <h2 className="text-3xl font-bold mb-6 text-center">
         {categoryName} Images
@@ -299,13 +298,18 @@ const CategoryImages = () => {
         <p className="text-center">No images found for this category.</p>
       )}
 
-{showSignUpModal && (
+      {showSignUpModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50 backdrop-blur-sm mb-0">
-          <div className={`p-6 rounded-lg shadow-lg w-full max-w-md ${isDarkMode ? "bg-black text-white" : "bg-white text-black"}`}>
+          <div
+            className={`p-6 rounded-lg shadow-lg w-full max-w-md ${
+              isDarkMode ? "bg-black text-white" : "bg-white text-black"
+            }`}
+          >
             <h2 className="text-2xl font-bold mb-6 text-center">
               Please Sign Up First
             </h2>
             <SignUp
+              customMargin={false}
               closeModal={() => {
                 setShowSignUpModal(false);
                 setShowSignInModal(true); // Open Sign In Modal after Sign Up
@@ -313,7 +317,11 @@ const CategoryImages = () => {
             />
             <button
               onClick={() => setShowSignUpModal(false)}
-              className={`mt-6 w-full px-4 py-2 rounded-md ${isDarkMode ? "bg-gray-800 hover:bg-gray-700 text-white" : "bg-gray-200 hover:bg-gray-300 text-black"}`}
+              className={`mt-6 w-full px-4 py-2 rounded-md ${
+                isDarkMode
+                  ? "bg-gray-800 hover:bg-gray-700 text-white"
+                  : "bg-gray-200 hover:bg-gray-300 text-black"
+              }`}
             >
               Close
             </button>
@@ -323,14 +331,20 @@ const CategoryImages = () => {
 
       {showSignInModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50 backdrop-blur-sm">
-          <div className={`p-6 rounded-lg shadow-lg w-full max-w-md ${isDarkMode ? "bg-black text-white" : "bg-white text-black"}`}>
-            <h2 className="text-2xl font-bold mb-6 text-center">
-              Sign In
-            </h2>
+          <div
+            className={`p-6 rounded-lg shadow-lg w-full max-w-md ${
+              isDarkMode ? "bg-black text-white" : "bg-white text-black"
+            }`}
+          >
+            <h2 className="text-2xl font-bold mb-6 text-center">Sign In</h2>
             <SignIn closeModal={() => setShowSignInModal(false)} />
             <button
               onClick={() => setShowSignInModal(false)}
-              className={`mt-6 w-full px-4 py-2 rounded-md ${isDarkMode ? "bg-gray-800 hover:bg-gray-700 text-white" : "bg-gray-200 hover:bg-gray-300 text-black"}`}
+              className={`mt-6 w-full px-4 py-2 rounded-md ${
+                isDarkMode
+                  ? "bg-gray-800 hover:bg-gray-700 text-white"
+                  : "bg-gray-200 hover:bg-gray-300 text-black"
+              }`}
             >
               Close
             </button>

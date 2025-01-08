@@ -1,18 +1,18 @@
 {
   "name": "Walls Ai",
-  "description": "A Website for Collection of AI Generated Wallpapers",
+  "description": "Explore a curated collection of stunning AI-generated wallpapers, designed to transform your screen with futuristic and artistic visuals.",
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff",
   "icons": [
     {
-      "src": "Wallsai.png",
+      "src": "wallsai.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "Wallsai.png",
+      "src": "wallsai.png",
       "sizes": "512x512",
       "type": "image/png"
     },

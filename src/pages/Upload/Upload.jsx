@@ -1,4 +1,4 @@
-import React, { useState , useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useTheme } from "../../context/ThemeContext";
 import { motion } from "framer-motion";
 import axios from "axios";
@@ -112,40 +112,43 @@ const Upload = () => {
     >
       {!isAuthorized ? (
         <form
-        onSubmit={handlePasswordSubmit}
-        className={`p-6 rounded shadow-md ${
-          isDarkMode ? "bg-black text-white" : "bg-white text-black"
-        }`}
-      >
-        <label htmlFor="password" className="block mb-4 text-lg font-semibold">
-          🔒 Prove You're Worthy! Enter the Secret Code:
-        </label>
-        <input
-          type="password"
-          id="password"
-          autoFocus
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className={`border-2 p-3 rounded w-full text-lg focus:outline-none focus:ring-2 ${
-            isDarkMode
-              ? "bg-black text-white border-gray-700 focus:ring-gray-500"
-              : "bg-white text-black border-gray-300 focus:ring-gray-500"
-          }`}
-          placeholder="Enter secret code"
-          required
-        />
-        {error && <p className="text-red-500 mt-2 text-sm">{error}</p>}
-        <button
-          type="submit"
-          className={`w-full mt-4 p-3 text-lg font-semibold rounded transition-all ${
-            isDarkMode
-              ? "bg-white text-black hover:bg-gray-800 hover:text-white"
-              : "bg-black text-white hover:bg-gray-200 hover:text-black"
+          onSubmit={handlePasswordSubmit}
+          className={`p-6 rounded shadow-md ${
+            isDarkMode ? "bg-black text-white" : "bg-white text-black"
           }`}
         >
-          Submit
-        </button>
-      </form>      
+          <label
+            htmlFor="password"
+            className="block mb-4 text-lg font-semibold"
+          >
+            🔒 Prove You're Worthy! Enter the Secret Code:
+          </label>
+          <input
+            type="password"
+            id="password"
+            autoFocus
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className={`border-2 p-3 rounded w-full text-lg focus:outline-none focus:ring-2 ${
+              isDarkMode
+                ? "bg-black text-white border-gray-700 focus:ring-gray-500"
+                : "bg-white text-black border-gray-300 focus:ring-gray-500"
+            }`}
+            placeholder="Enter secret code"
+            required
+          />
+          {error && <p className="text-red-500 mt-2 text-sm">{error}</p>}
+          <button
+            type="submit"
+            className={`w-full mt-4 p-3 text-lg font-semibold rounded transition-all ${
+              isDarkMode
+                ? "bg-white text-black hover:bg-gray-800 hover:text-white"
+                : "bg-black text-white hover:bg-gray-200 hover:text-black"
+            }`}
+          >
+            Submit
+          </button>
+        </form>
       ) : (
         <>
           <motion.div

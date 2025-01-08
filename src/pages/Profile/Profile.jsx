@@ -37,8 +37,10 @@ const Profile = () => {
             portfolio: "https://irohanportfolio.netlify.app",
             linkedin: "https://linkedin.com/in/rohan-mistry-493987202",
             github: "https://github.com/rohanmistry231",
-            wallsaifrontend: "https://github.com/rohanmistry231/AI-Wallpapers-Frontend",
-            wallsaibackend: "https://github.com/rohanmistry231/AI-Wallpapers-Backend",
+            wallsaifrontend:
+              "https://github.com/rohanmistry231/AI-Wallpapers-Frontend",
+            wallsaibackend:
+              "https://github.com/rohanmistry231/AI-Wallpapers-Backend",
             medium: "https://medium.com/@rohanmistry231",
           },
           wallpaperCount: 3300,
@@ -214,7 +216,7 @@ const Profile = () => {
 
             {/* GitHub Repository Section */}
             <motion.div
-              className={`mt-10 p-6 rounded-lg shadow-lg ${
+              className={`mt-10 p-6 rounded-lg shadow-lg mb-2 ${
                 isDarkMode ? "bg-gray-900 text-white" : "bg-gray-200 text-black"
               }`}
               initial={{ opacity: 0, y: -50 }}
@@ -236,7 +238,7 @@ const Profile = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Walls.ai Frontend Repository
+                  Walls.ai Frontend CodeBase
                 </a>
               </div>
               <div className="mt-4 text-center">
@@ -246,7 +248,7 @@ const Profile = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Walls.ai Backend Repository
+                  Walls.ai Backend CodeBase
                 </a>
               </div>
             </motion.div>

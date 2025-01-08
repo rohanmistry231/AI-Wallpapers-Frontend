@@ -3,6 +3,7 @@ import axios from "axios";
 import SignUp from "../../components/SignUp";
 import SignIn from "../../components/SignIn";
 import { useTheme } from "../../context/ThemeContext";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Wallpapers = () => {
   const { theme } = useTheme();
@@ -19,6 +20,28 @@ const Wallpapers = () => {
   const [shareStatus, setShareStatus] = useState(false);
   const [wallpapersLoading, setWallpapersLoading] = useState(true);
   const itemsPerPage = 32;
+
+  const loadingMessages = [
+    "Almost there...",
+    "Cooking up wallpapers...",
+    "Ready to deliver!",
+    "Just a moment more...",
+    "Hang tight, magic's happening!",
+  ];
+
+  const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
+
+  useEffect(() => {
+    if (loading || wallpapersLoading) {
+      const interval = setInterval(() => {
+        setCurrentMessageIndex((prevIndex) =>
+          prevIndex === loadingMessages.length - 1 ? 0 : prevIndex + 1
+        );
+      }, 2000); // Change message every 2 seconds
+
+      return () => clearInterval(interval); // Cleanup interval on component unmount
+    }
+  }, [loading, wallpapersLoading, loadingMessages.length]);
 
   const openPreviewModal = (imageUrl) => {
     if (isAuthenticated()) {
@@ -105,12 +128,23 @@ const Wallpapers = () => {
     >
       <h1 className="text-2xl font-bold text-center mb-6 mt-20">Wallpapers</h1>
       {loading || wallpapersLoading ? (
-        <div className="flex justify-center items-center min-h-screen">
-          <div
-            className={`animate-spin rounded-full h-16 w-16 border-t-4 ${
-              isDarkMode ? "border-white" : "border-black border-opacity-75"
-            }`}
-          ></div>
+        <div
+          className={`flex flex-col justify-center items-center min-h-screen ${
+            isDarkMode ? "bg-black text-white" : "bg-white text-black"
+          }`}
+        >
+          <AnimatePresence>
+            <motion.div
+              key={loadingMessages[currentMessageIndex]}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.5 }}
+              className="text-2xl font-semibold"
+            >
+              {loadingMessages[currentMessageIndex]}
+            </motion.div>
+          </AnimatePresence>
         </div>
       ) : (
         <>
@@ -178,10 +212,16 @@ const Wallpapers = () => {
           min="1"
           max={totalPages}
           className={`w-16 text-center rounded-md border-2 ${
-            isDarkMode ? "bg-gray-800 text-white border-gray-600" : "bg-gray-200 text-black border-gray-400"
+            isDarkMode
+              ? "bg-gray-800 text-white border-gray-600"
+              : "bg-gray-200 text-black border-gray-400"
           }`}
         />
-        <span className={`text-lg font-medium ${isDarkMode ? "text-gray-300" : "text-gray-700"}`}>
+        <span
+          className={`text-lg font-medium ${
+            isDarkMode ? "text-gray-300" : "text-gray-700"
+          }`}
+        >
           of {totalPages}
         </span>
 
@@ -220,7 +260,7 @@ const Wallpapers = () => {
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-8 w-8"
+                  className="h-6 w-6"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -229,7 +269,7 @@ const Wallpapers = () => {
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    d="M15 12h3l-4 4m0 0l4-4-4-4m4 4H9"
+                    d="M17 9l4-4m0 0l-4-4m4 4H3M7 12l-4 4m0 0l4 4m-4-4h14"
                   />
                 </svg>
                 {shareStatus && (
@@ -288,10 +328,11 @@ const Wallpapers = () => {
               isDarkMode ? "bg-black text-white" : "bg-white text-black"
             }`}
           >
-            <h2 className="text-2xl font-bold mb-6 text-center">
+            <h2 className="text-2xl font-bold mb-0 text-center">
               Please Sign Up First
             </h2>
             <SignUp
+              customMargin={false}
               closeModal={() => {
                 setShowSignUpModal(false);
                 setShowSignInModal(true);

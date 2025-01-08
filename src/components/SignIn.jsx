@@ -23,13 +23,16 @@ const SignIn = () => {
     setLoading(true);
 
     try {
-      const response = await fetch("https://ai-wallpapers-backend.vercel.app/users/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        "https://ai-wallpapers-backend.vercel.app/users/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
       const data = await response.json();
 
@@ -107,8 +110,10 @@ const SignIn = () => {
 
           <motion.button
             type="submit"
-            className={`w-full py-3 px-8 bg-black text-white rounded-md shadow-md hover:bg-gray-800 transition-all duration-300 ${
-              isDarkMode ? "hover:text-white border" : "hover:text-black border"
+            className={`w-full py-3 px-8 bg-black text-white rounded-md shadow-md transition-all duration-300 ${
+              isDarkMode
+                ? "hover:text-white border hover:bg-gray-800"
+                : "hover:text-black border hover:bg-gray-400"
             }`}
             disabled={loading}
             initial={{ opacity: 0, y: 50 }}

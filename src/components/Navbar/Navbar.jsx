@@ -50,9 +50,12 @@ const Navbar = () => {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
         {/* Logo and Title */}
-        <Link to="/" className="flex items-center space-x-2 text-2xl font-bold tracking-wide">
+        <Link
+          to="/"
+          className="flex items-center space-x-2 text-2xl font-bold tracking-wide"
+        >
           <img
-            src={isDarkMode ? "white logo.png" : "black logo.png"}
+            src={isDarkMode ? "wlogo.png" : "blogo.png"}
             alt="Walls.Ai Logo"
             className="h-8 w-8" // Adjust height and width as needed
           />
@@ -186,7 +189,9 @@ const Navbar = () => {
             key={link.path}
             to={link.path}
             onClick={toggleMenu}
-            className={`block text-lg capitalize ${getLinkClass(link.path)} transition-all duration-500 ease-out ${
+            className={`block text-lg capitalize ${getLinkClass(
+              link.path
+            )} transition-all duration-500 ease-out ${
               isOpen
                 ? `opacity-100 translate-x-0 delay-${index * 100}`
                 : "opacity-0 translate-x-10"

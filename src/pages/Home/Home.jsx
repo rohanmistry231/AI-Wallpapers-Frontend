@@ -388,30 +388,66 @@ const Home = () => {
             {/* Replace with your dynamic wallpaper images */}
             <div className="slider-item">
               <img
-                src="https://i.postimg.cc/266bvnDJ/60.jpg"
+                src="https://i.postimg.cc/90725kW2/646.jpg"
                 alt="Wallpaper 1"
-                className="w-full h-64 object-cover rounded-lg shadow-md"
+                className="w-full h-auto max-h-[90vh] object-cover rounded-lg shadow-md"
+                style={{ aspectRatio: "9/16" }} // Set aspect ratio to 9:16
               />
             </div>
             <div className="slider-item">
               <img
-                src="https://i.postimg.cc/vmbRBzsr/03.jpg"
+                src="https://i.postimg.cc/W381kpFn/3105.jpg"
                 alt="Wallpaper 2"
-                className="w-full h-64 object-cover rounded-lg shadow-md"
+                className="w-full h-auto max-h-[90vh] object-cover rounded-lg shadow-md"
+                style={{ aspectRatio: "9/16" }} // Set aspect ratio to 9:16
               />
             </div>
             <div className="slider-item">
               <img
-                src="https://i.postimg.cc/631bpSLQ/2477.jpg"
+                src="https://i.postimg.cc/266bvnDJ/60.jpg"
                 alt="Wallpaper 3"
-                className="w-full h-64 object-cover rounded-lg shadow-md"
+                className="w-full h-auto max-h-[90vh] object-cover rounded-lg shadow-md"
+                style={{ aspectRatio: "9/16" }} // Set aspect ratio to 9:16
               />
             </div>
             <div className="slider-item">
               <img
-                src="https://i.postimg.cc/RFBT0dKt/1727.jpg"
+                src="https://i.postimg.cc/HsRvgQZw/2019.jpg"
                 alt="Wallpaper 4"
-                className="w-full h-64 object-cover rounded-lg shadow-md"
+                className="w-full h-auto max-h-[90vh] object-cover rounded-lg shadow-md"
+                style={{ aspectRatio: "9/16" }} // Set aspect ratio to 9:16
+              />
+            </div>
+            <div className="slider-item">
+              <img
+                src="https://i.postimg.cc/9MD1K0d8/2679.jpg"
+                alt="Wallpaper 4"
+                className="w-full h-auto max-h-[90vh] object-cover rounded-lg shadow-md"
+                style={{ aspectRatio: "9/16" }} // Set aspect ratio to 9:16
+              />
+            </div>
+            <div className="slider-item">
+              <img
+                src="https://i.postimg.cc/L4qFXD7P/238.jpg"
+                alt="Wallpaper 4"
+                className="w-full h-auto max-h-[90vh] object-cover rounded-lg shadow-md"
+                style={{ aspectRatio: "9/16" }} // Set aspect ratio to 9:16
+              />
+            </div>
+            <div className="slider-item">
+              <img
+                src="https://i.postimg.cc/jqW945Rn/1435.jpg"
+                alt="Wallpaper 4"
+                className="w-full h-auto max-h-[90vh] object-cover rounded-lg shadow-md"
+                style={{ aspectRatio: "9/16" }} // Set aspect ratio to 9:16
+              />
+            </div>
+            <div className="slider-item">
+              <img
+                src="https://i.postimg.cc/v8L08smN/1265.jpg"
+                alt="Wallpaper 4"
+                className="w-full h-auto max-h-[90vh] object-cover rounded-lg shadow-md"
+                style={{ aspectRatio: "9/16" }} // Set aspect ratio to 9:16
               />
             </div>
           </Slider>
@@ -464,8 +500,8 @@ const Home = () => {
         </div>
       </motion.section>
 
-       {/* Feedback Section */}
-       <motion.section
+      {/* Feedback Section */}
+      <motion.section
         className={`feedback-section ${
           isDarkMode ? "bg-black text-white" : "bg-white text-black"
         } py-20 px-6 sm:px-12`}
@@ -536,15 +572,14 @@ const Home = () => {
             <button
               type="submit"
               className={`explore-btn inline-block py-3 px-8 bg-black text-white rounded-full shadow-md hover:bg-gray-800 transition-all duration-300 ${
-              isDarkMode ? "hover:text-white" : "hover:text-black"
-            }`}
+                isDarkMode ? "hover:text-white" : "hover:text-black"
+              }`}
             >
               Submit Feedback
             </button>
           </form>
         </div>
       </motion.section>
-
     </div>
   );
 };

@@ -17,19 +17,24 @@ const Category = () => {
   useEffect(() => {
     const fetchCategoriesAndThumbnails = async () => {
       try {
-        const categoriesResponse = await axios.get("https://ai-wallpapers-backend.vercel.app/images/categories");
+        const categoriesResponse = await axios.get(
+          "https://ai-wallpapers-backend.vercel.app/images/categories"
+        );
         const categories = categoriesResponse.data.categories;
         setCategories(categories);
 
         // Fetch a sample image for each category
         const imagePromises = categories.map((category) =>
-          axios.get(`https://ai-wallpapers-backend.vercel.app/images/category/${category}?limit=1`)
+          axios.get(
+            `https://ai-wallpapers-backend.vercel.app/images/category/${category}?limit=1`
+          )
         );
 
         const imageResponses = await Promise.all(imagePromises);
         const imagesMap = {};
         categories.forEach((category, index) => {
-          const categoryImage = imageResponses[index]?.data?.data?.[0]?.imageUrl || null;
+          const categoryImage =
+            imageResponses[index]?.data?.data?.[0]?.imageUrl || null;
           imagesMap[category] = categoryImage;
         });
         setCategoryImages(imagesMap);
@@ -46,7 +51,9 @@ const Category = () => {
     setSelectedCategory(category);
     setLoading(true);
     try {
-      const response = await axios.get(`https://ai-wallpapers-backend.vercel.app/images/category/${category}`);
+      const response = await axios.get(
+        `https://ai-wallpapers-backend.vercel.app/images/category/${category}`
+      );
       setImages(response.data.data);
     } catch (error) {
       console.error("Error fetching images:", error);
@@ -132,7 +139,9 @@ const Category = () => {
                   </div>
                 )}
                 {/* Category Name */}
-                <h3 className="text-lg font-semibold text-center">{category}</h3>
+                <h3 className="text-lg font-semibold text-center">
+                  {category}
+                </h3>
               </motion.div>
             ))}
           </div>

@@ -22,11 +22,13 @@ function App() {
     <Router
       future={{
         v7_relativeSplatPath: true, // Opt into the new v7 relative splat path behavior
-        v7_startTransition: true,  // Opt into state transition handling
+        v7_startTransition: true, // Opt into state transition handling
       }}
     >
       <div
-        className={`flex flex-col min-h-screen ${isDarkMode ? "dark" : "light"}`}
+        className={`flex flex-col min-h-screen ${
+          isDarkMode ? "dark" : "light"
+        }`}
       >
         <Navbar />
         <main className="flex-grow">
@@ -36,7 +38,10 @@ function App() {
             <Route path="/signup" element={<SignUp />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/categories" element={<CategoriesList />} />
-            <Route path="/category/:categoryName" element={<CategoryImages />} />
+            <Route
+              path="/category/:categoryName"
+              element={<CategoryImages />}
+            />
             <Route path="/upload" element={<Upload />} />
             <Route path="/contri" element={<Contribution />} />
             <Route path="/contribution" element={<Contributor />} />

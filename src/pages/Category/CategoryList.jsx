@@ -13,15 +13,41 @@ const CategoriesList = () => {
   const [categories, setCategories] = useState([]);
   const [categoryImages, setCategoryImages] = useState({});
   const [loading, setLoading] = useState(true);
+  const [loadingMessageIndex, setLoadingMessageIndex] = useState(0);
   const navigate = useNavigate();
 
   // Dummy data for upcoming categories
   const upcomingCategories = [
-    { name: "AI Landscapes", description: "Beautiful AI-generated landscapes." },
-    { name: "Fantasy Worlds", description: "Dive into fantastical realms." },
-    { name: "Cyberpunk Cities", description: "Explore futuristic cityscapes." },
-    { name: "Minimalist Art", description: "Sleek, modern, and minimalist." },
+    {
+      name: "Greek God",
+      description: "AI landscapes inspired by Greek mythology.",
+    },
+    {
+      name: "Aphrodite of Milos",
+      description: "Romantic settings inspired by Aphrodite.",
+    },
+    {
+      name: "Multiverse",
+      description: "Futuristic cityscapes from alternate realities.",
+    },
+    { name: "Zombie", description: "Apocalyptic, undead-themed environments." },
   ];
+
+  const loadingMessages = [
+    "Fetching categories...",
+    "Preparing something amazing...",
+    "Almost there...",
+    "Get ready to explore!",
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setLoadingMessageIndex(
+        (prevIndex) => (prevIndex + 1) % loadingMessages.length
+      );
+    }, 2000);
+    return () => clearInterval(interval);
+  }, [loadingMessages.length]);
 
   useEffect(() => {
     const fetchCategoriesAndThumbnails = async () => {
@@ -98,18 +124,20 @@ const CategoriesList = () => {
     >
       {/* Loading Animation */}
       {loading ? (
-        <div className="flex justify-center items-center min-h-screen">
-          <div
-            className={`animate-spin rounded-full h-12 w-12 border-t-4 ${
-              isDarkMode
-                ? "border-gray-200 border-opacity-75"
-                : "border-gray-800 border-opacity-75"
-            }`}
-          ></div>
+        <div className="flex flex-col justify-center items-center min-h-screen">
+          <motion.div
+            key={loadingMessageIndex}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.5 }}
+            className="text-2xl font-semibold"
+          >
+            {loadingMessages[loadingMessageIndex]}
+          </motion.div>
         </div>
       ) : (
         <section className="categories-section py-10">
-
           {/* Upcoming Categories Section */}
           <div className="upcoming-categories-section mb-4">
             <h3 className="text-2xl font-semibold mb-4 text-center">
@@ -124,7 +152,7 @@ const CategoriesList = () => {
                     background: isDarkMode
                       ? "linear-gradient(to bottom, #111, #222)"
                       : "linear-gradient(to bottom, #eee, #fff)",
-                    }}
+                  }}
                 >
                   <h4 className="text-xl font-bold mb-2 text-center">
                     {category.name}

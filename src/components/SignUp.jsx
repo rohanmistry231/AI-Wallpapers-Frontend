@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext";
 import { motion } from "framer-motion";
 
-const SignUp = () => {
+const SignUp = ({ customMargin = true }) => {
   const { theme } = useTheme();
   const isDarkMode = theme === "dark";
   const [formData, setFormData] = useState({
@@ -61,9 +61,9 @@ const SignUp = () => {
 
   return (
     <div
-      className={`max-h-screen flex items-center justify-center p-0 mt-16 ${
-        isDarkMode ? "bg-black text-white" : "bg-white text-black"
-      }`}
+      className={`max-h-screen flex items-center justify-center p-0 ${
+        customMargin ? "mt-16" : ""
+      } ${isDarkMode ? "bg-black text-white" : "bg-white text-black"}`}
     >
       <motion.div
         className="w-full max-w-sm bg-opacity-90 rounded-lg p-6 shadow-xl"
@@ -118,7 +118,7 @@ const SignUp = () => {
 
           <div className="relative">
             <label htmlFor="password" className="block text-sm font-medium">
-              Password
+              Generate Password
             </label>
             <input
               type="password"
@@ -138,8 +138,10 @@ const SignUp = () => {
 
           <motion.button
             type="submit"
-            className={`w-full inline-block py-3 px-8 bg-black text-white rounded-md shadow-md hover:bg-gray-800 transition-all duration-300 ${
-              isDarkMode ? "hover:text-white border" : "hover:text-black border"
+            className={`w-full inline-block py-3 px-8 bg-black text-white rounded-md shadow-md transition-all duration-300 ${
+              isDarkMode
+                ? "hover:text-white border hover:bg-gray-800"
+                : "hover:text-black border hover:bg-gray-400"
             }`}
             disabled={loading}
             initial={{ opacity: 0, y: 50 }}

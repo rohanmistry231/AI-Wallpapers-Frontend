@@ -61,13 +61,18 @@ const Contributor = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
       >
-        <h2 className="text-2xl font-semibold text-center mb-6">Be The Contributor</h2>
+        <h2 className="text-2xl font-semibold text-center mb-6">
+          Be The Contributor
+        </h2>
 
         {error && <p className="text-red-500 text-center mb-4">{error}</p>}
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="relative">
-            <label htmlFor="contributorName" className="block text-sm font-medium">
+            <label
+              htmlFor="contributorName"
+              className="block text-sm font-medium"
+            >
               Contributor Name
             </label>
             <input
@@ -148,8 +153,10 @@ const Contributor = () => {
 
           <motion.button
             type="submit"
-            className={`w-full py-3 px-8 bg-black text-white rounded-md shadow-md hover:bg-gray-800 transition-all duration-300 ${
-              isDarkMode ? "hover:text-white border" : "hover:text-black border"
+            className={`w-full py-3 px-8 bg-black text-white rounded-md shadow-md transition-all duration-300 ${
+              isDarkMode
+                ? "hover:text-white border hover:bg-gray-800"
+                : "hover:text-black border hover:bg-gray-400"
             }`}
             disabled={loading}
             initial={{ opacity: 0, y: 50 }}

@@ -82,10 +82,7 @@ const Personalization = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.4 }}
             >
-              <label
-                htmlFor="name"
-                className="block text-lg font-medium mb-2"
-              >
+              <label htmlFor="name" className="block text-lg font-medium mb-2">
                 Your Name
               </label>
               <input
@@ -109,10 +106,7 @@ const Personalization = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.6 }}
             >
-              <label
-                htmlFor="email"
-                className="block text-lg font-medium mb-2"
-              >
+              <label htmlFor="email" className="block text-lg font-medium mb-2">
                 Your Email
               </label>
               <input
@@ -171,8 +165,10 @@ const Personalization = () => {
           >
             <button
               type="submit"
-              className={`border py-3 px-8 bg-black text-white rounded-md shadow-md hover:bg-gray-800 transition-all duration-300 ${
-                isDarkMode ? "hover:text-white hover:bg-gray-800" : "hover:text-black"
+              className={`border py-3 px-8 bg-black text-white rounded-md shadow-md transition-all duration-300 ${
+                isDarkMode
+                  ? "hover:text-white border hover:bg-gray-800"
+                  : "hover:text-black border hover:bg-gray-400"
               }`}
               disabled={loading}
             >
