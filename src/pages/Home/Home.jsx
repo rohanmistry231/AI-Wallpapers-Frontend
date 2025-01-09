@@ -349,7 +349,7 @@ const Home = () => {
             for you to download.
           </motion.p>
           <motion.a
-            href="/gallery"
+            href="/wallpapers"
             className={`explore-btn inline-block py-3 px-8 bg-black text-white rounded-full shadow-md hover:bg-gray-800 transition-all duration-300 ${
               isDarkMode ? "hover:text-white" : "hover:text-black"
             }`}
